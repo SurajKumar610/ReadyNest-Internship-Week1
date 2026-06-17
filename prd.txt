@@ -1,0 +1,518 @@
+Product Requirements Document (PRD)
+Project: Dataset Analysis & Reporting Platform
+
+Version: 1.0
+Domain: Data Analytics
+Target Users: Analysts, Business Teams, Students, Researchers
+Objective: Build a complete end-to-end dataset analysis and reporting system that loads raw data, cleans it, performs statistical and exploratory analysis, generates insights, and presents results through interactive dashboards and automated reports.
+
+1. Project Overview
+
+The Dataset Analysis & Reporting platform will enable users to:
+
+Import datasets from multiple sources.
+Clean and preprocess raw data.
+Perform statistical and exploratory data analysis.
+Discover relationships and patterns.
+Create visualizations and dashboards.
+Generate business insights automatically.
+Perform forecasting and predictive modeling.
+Conduct A/B testing and advanced reporting.
+
+The system should support CSV, Excel, SQL databases, and APIs.
+
+2. Goals
+Primary Goals
+Simplify dataset analysis workflow.
+Automate reporting and insight generation.
+Provide interactive dashboards.
+Support predictive analytics and forecasting.
+Success Metrics
+Support datasets up to 1 million rows.
+Dashboard response time < 2 seconds.
+Generate reports automatically.
+Produce at least 5–10 meaningful insights from a dataset.
+3. Technology Stack
+Backend
+Python
+Pandas
+NumPy
+SciPy
+Statsmodels
+Scikit-Learn
+Visualization
+Matplotlib
+Seaborn
+Plotly
+Dashboard
+Power BI / Tableau
+Streamlit (optional)
+Database
+PostgreSQL / MySQL
+Reporting
+Python scripts
+PDF/Excel generation
+Geographic Mapping
+Folium
+GeoPandas
+4. Functional Requirements
+Module 1: Data Loading
+Objective
+
+Import structured data from multiple sources.
+
+Features
+File Upload
+
+Support:
+
+CSV
+Excel (.xlsx)
+JSON
+Database Connection
+MySQL
+PostgreSQL
+API Integration
+REST APIs
+Outputs
+Dataset Preview
+Column Names
+Shape (rows × columns)
+Data Types
+Example
+df = pd.read_csv("sales.csv")
+Module 2: Data Cleaning
+Objective
+
+Prepare data for analysis.
+
+Features
+Missing Value Handling
+Mean Imputation
+Median Imputation
+Mode Imputation
+Drop Null Rows
+Duplicate Removal
+df.drop_duplicates()
+Data Type Conversion
+
+Examples:
+
+String → Date
+Float → Integer
+Outlier Detection
+
+Methods:
+
+IQR
+Z-score
+Standardization
+Lowercase text
+Trim whitespaces
+Format dates
+Output
+
+Cleaned dataset.
+
+Module 3: Descriptive Statistics
+Objective
+
+Summarize numerical features.
+
+Metrics
+Central Tendency
+Mean
+Median
+Mode
+Dispersion
+Variance
+Standard Deviation
+Range
+Shape
+Skewness
+Kurtosis
+Output
+
+Statistical summary table.
+
+Example:
+
+df.describe()
+Module 4: Univariate Analysis
+Objective
+
+Study individual variables.
+
+Numerical Variables
+
+Charts:
+
+Histogram
+KDE Plot
+Box Plot
+
+Metrics:
+
+Frequency Distribution
+Percentiles
+Categorical Variables
+
+Charts:
+
+Bar Chart
+Pie Chart
+Output
+
+Distribution report.
+
+Module 5: Bivariate Analysis
+Objective
+
+Discover relationships between variables.
+
+Numerical vs Numerical
+Scatter Plot
+Correlation Matrix
+Heatmap
+Numerical vs Categorical
+Box Plot
+Violin Plot
+Categorical vs Categorical
+Contingency Table
+Stacked Bar Chart
+Statistical Measures
+Pearson Correlation
+Spearman Correlation
+Output
+
+Relationship report.
+
+Module 6: Data Visualization
+Objective
+
+Create clear visual representations.
+
+Standard Charts
+Line Chart
+Bar Chart
+Histogram
+Pie Chart
+Scatter Plot
+Advanced Visualizations
+Heatmaps
+Pairplots
+Violin Plots
+
+Libraries
+
+Matplotlib
+Seaborn
+Plotly
+Output
+
+Image files and dashboard components.
+
+Module 7: Insight Extraction
+Objective
+
+Automatically identify important findings.
+
+Features
+
+Detect:
+
+Highest sales product
+Top customers
+Seasonal trends
+Outliers
+Strong correlations
+Generate
+Key Findings
+Recommendations
+Action Items
+Example
+Sales increased by 23% during Q4.
+Region West contributed 41% of total revenue.
+Customer churn is highest among users aged 20–30.
+Module 8: Interactive Dashboard
+Objective
+
+Present results interactively.
+
+Components
+KPI Cards
+Revenue
+Profit
+Orders
+Growth %
+Filters
+Date Range
+Region
+Product Category
+Charts
+Sales Trend
+Category Breakdown
+Correlation Heatmap
+User Interactions
+Drill-down
+Hover Tooltips
+Dynamic Slicers
+Tools
+Power BI
+Tableau
+Streamlit
+Module 9: Feature Engineering
+Objective
+
+Create meaningful variables.
+
+Techniques
+Encoding
+Label Encoding
+One-Hot Encoding
+Scaling
+StandardScaler
+MinMaxScaler
+Derived Features
+
+Examples:
+
+Profit Margin = Profit / Revenue
+Date Features
+
+Extract:
+
+Day
+Month
+Quarter
+Year
+Output
+
+Enhanced dataset.
+
+Module 10: Time Series Forecasting
+Objective
+
+Predict future values.
+
+Models
+Moving Average
+ARIMA
+Exponential Smoothing
+Prophet
+Forecast
+Sales
+Revenue
+Demand
+Metrics
+RMSE
+MAE
+MAPE
+Output
+
+Future predictions and trend charts.
+
+Module 11: Geographic Mapping
+Objective
+
+Visualize spatial data.
+
+Features
+
+Maps showing:
+
+Sales by State
+Customer Locations
+Delivery Routes
+Tools
+Folium
+GeoPandas
+Visualizations
+Choropleth Maps
+Marker Maps
+Heat Maps
+Output
+
+Interactive geographic dashboard.
+
+Module 12: Advanced Chart Types
+Objective
+
+Provide richer visual analysis.
+
+Charts
+Sankey Diagram
+
+Shows flow between categories.
+
+Treemap
+
+Hierarchical proportions.
+
+Sunburst Chart
+
+Multi-level hierarchy.
+
+Radar Chart
+
+Performance comparison.
+
+Bubble Chart
+
+Three-dimensional relationship.
+
+Waterfall Chart
+
+Incremental changes.
+
+Candlestick Chart
+
+Financial data analysis.
+
+Libraries
+Plotly
+Matplotlib
+Module 13: Predictive Modelling Basics
+Objective
+
+Build machine learning models.
+
+Regression
+
+Models:
+
+Linear Regression
+Ridge Regression
+
+Metrics:
+
+MAE
+RMSE
+R²
+Classification
+
+Models:
+
+Logistic Regression
+Decision Tree
+Random Forest
+
+Metrics:
+
+Accuracy
+Precision
+Recall
+F1 Score
+Workflow
+Data
+ ↓
+Feature Engineering
+ ↓
+Train-Test Split
+ ↓
+Model Training
+ ↓
+Prediction
+ ↓
+Evaluation
+Module 14: A/B Testing
+Objective
+
+Compare two alternatives statistically.
+
+Inputs
+
+Variant A
+
+Variant B
+
+Metrics
+Conversion Rate
+Click Through Rate
+Revenue
+Statistical Tests
+T-Test
+Chi-Square Test
+Z-Test
+Output
+Variant B increased conversions by 12%.
+p-value = 0.03
+Result statistically significant.
+Module 15: Advanced Reporting Scripts
+Objective
+
+Automate report generation.
+
+Generate
+PDF Reports
+
+Include:
+
+Dataset summary
+Charts
+Insights
+Recommendations
+Excel Reports
+
+Sheets:
+
+Raw Data
+Cleaned Data
+Statistics
+Visualizations
+PowerPoint Reports
+
+Slides:
+
+Executive Summary
+Key Findings
+Charts
+Forecasts
+Automation
+
+Schedule reports:
+
+Daily
+Weekly
+Monthly
+Tools
+reportlab
+openpyxl
+python-pptx
+5. Folder Structure
+Dataset-Analysis-Reporting/
+│
+├── data/
+│   ├── raw/
+│   ├── cleaned/
+│
+├── notebooks/
+│
+├── src/
+│   ├── data_loading.py
+│   ├── data_cleaning.py
+│   ├── descriptive_statistics.py
+│   ├── univariate_analysis.py
+│   ├── bivariate_analysis.py
+│   ├── visualization.py
+│   ├── insight_extraction.py
+│   ├── feature_engineering.py
+│   ├── forecasting.py
+│   ├── geo_mapping.py
+│   ├── predictive_modeling.py
+│   ├── ab_testing.py
+│   └── reporting.py
+│
+├── dashboard/
+│   ├── streamlit_app.py
+│
+├── reports/
+│   ├── pdf/
+│   ├── excel/
+│   └── ppt/
+│
+├── models/
+│
+├── requirements.txt
+├── README.md
+└── main.py
