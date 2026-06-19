@@ -1,118 +1,141 @@
 # Dataset Analysis & Reporting Platform (DARP)
 
-DARP is a complete, modular, and professional dataset analysis and reporting platform built with Python and Streamlit. It automates loading, cleaning, analyzing, visualizing, forecasting, spatial plotting, statistical comparison, and document reporting workflows.
-
-## 🚀 Features
-
-1. **Flexible Data Loading (Module 1)**: Supports CSV, Excel, JSON file uploads, REST API integrations, and database extraction via SQLAlchemy URI connections.
-2. **Robust Data Cleansing (Module 2)**: Missing value imputations (Mean/Median/Mode), duplicate removal, IQR/Z-score outlier capping or removal, and text-trimming standardization.
-3. **Descriptive Stats Summary (Module 3)**: Automatic mean, median, mode, variance, range, skewness, kurtosis, and missing percentage metrics for all numerical attributes.
-4. **Interactive Univariate Analysis (Module 4)**: Histograms, Kernel Density Estimate (KDE) violin plots, bar charts, and donut charts built using Plotly.
-5. **Interactive Bivariate Relationships (Module 5 & 6)**: Numerical vs. Numerical (scatter plots with OLS trendlines and Pearson/Spearman correlation metrics), Numerical vs. Categorical (box/violin plots), and Categorical vs. Categorical (stacked bar charts with Chi-Square tests of independence).
-6. **Key Insights Discovery Engine (Module 7)**: Automated business findings, recommendations, and actionable items extracted from statistical properties and business columns (revenue, category, date, customer age, churn, etc.).
-7. **Feature Engineering (Module 9)**: Date part extraction, numerical scaling (Standard/MinMax), label/one-hot encoding, and custom ratio metrics.
-8. **Time Series Forecasting (Module 10)**: Exponential Smoothing, Moving Average, and ARIMA models with evaluation metrics (RMSE, MAE, MAPE) and forecast trend lines.
-9. **Interactive Geographic Maps (Module 11)**: Scatter Maps (Plotly Express Mapbox), Marker Clusters, and Heatmaps (Folium).
-10. **Machine Learning Predictive Modeling (Module 13)**: Regressions (Linear, Ridge, Decision Tree, Random Forest) and Classifications (Logistic, Decision Tree, Random Forest) with scorecard metrics (R², MAE, RMSE; Accuracy, Precision, Recall, F1) and driver weights (feature importances).
-11. **A/B Testing significance (Module 14)**: Independent Two-Sample T-tests (for numeric indicators) and Chi-Square tests (for binary conversion indicators) showing lift and statistical significance p-value analysis.
-12. **Automated Export Reports Pack (Module 15)**: One-click export download of PDF executive briefings (ReportLab), multi-worksheet Excel files (OpenPyXL), and PowerPoint slides (python-pptx).
+DARP is a complete, modular, and professional dataset analysis and reporting platform built with Python (FastAPI + Streamlit). It has been refactored into a decoupled **Frontend-Backend architecture** to allow professional deployment, caching, and scalable analytical processing.
 
 ---
 
-## 🛠️ Project Directory Structure
+## 🚀 Architecture Reorganization
+
+The project is structured into separate frontend and backend directories:
+
+- **[`backend/`](file:///e:/Week1%20Dataset%20analysis%20platform/backend/)**: Exposes a REST API using FastAPI. It handles files uploads, data cleansing, descriptive statistics, time series forecasting, geographic mapping, machine learning model training, and A/B test evaluations.
+  - **SQLite Database**: Automatically stores uploaded files details (original filename, row/column shapes, column names, missing values per column, inferred data types, and cleaning status) to maintain a persistent state.
+- **[`frontend/`](file:///e:/Week1%20Dataset%20analysis%20platform/frontend/)**: A responsive Streamlit dashboard interface. It makes HTTP REST requests to the backend API and renders Plotly charts and Folium map components directly from JSON response payloads.
+
+---
+
+## 🛠️ Project Directory Layout
 
 ```text
 Dataset-Analysis-Reporting/
 │
-├── data/
-│   ├── raw/
-│   └── cleaned/
+├── backend/
+│   ├── app/
+│   │   ├── src/                   # Core analytical modules
+│   │   ├── main.py                # FastAPI endpoints
+│   │   ├── database.py            # SQLite session configuration
+│   │   ├── models.py              # SQLAlchemy database tables
+│   │   ├── schemas.py             # Pydantic validation schemas
+│   │   └── crud.py                # CRUD queries
+│   ├── tests/                     # Unit test files
+│   ├── uploads/                   # Stored dataset CSV/Excel/JSON files
+│   ├── reports/                   # Stored PDF, Excel, and PPT reports
+│   ├── Dockerfile
+│   └── requirements.txt
 │
-├── notebooks/                 # Jupyer notebook sandboxes
+├── frontend/
+│   ├── streamlit_app.py           # Streamlit app communicating with backend API
+│   ├── Dockerfile
+│   └── requirements.txt
 │
-├── src/                       # Core python analytics modules
-│   ├── data_loading.py        # Import CSV, Excel, JSON, SQL, APIs
-│   ├── data_cleaning.py       # Imputers, outliers, type cast, text trim
-│   ├── descriptive_statistics.py # Calculations of moments & dispersion
-│   ├── univariate_analysis.py # Frequency tables & single variable charts
-│   ├── bivariate_analysis.py  # Co-relations, Chi-Square, crosstabs
-│   ├── visualization.py       # Advanced charts (radar, sankey, waterfall, treemap)
-│   ├── insight_extraction.py  # Statistics & business rules insight engine
-│   ├── feature_engineering.py # Encoders, scalers, date parts, custom ratios
-│   ├── forecasting.py         # time-series ARIMA/Exponential Smoothing
-│   ├── geo_mapping.py         # coordinates plotting & Folium maps
-│   ├── predictive_modeling.py # ML training, predictions & validations
-│   ├── ab_testing.py          # control/variant hypothesis checks
-│   └── reporting.py           # Document export (PDF, Excel, PPT)
-│
-├── dashboard/
-│   └── streamlit_app.py       # Streamlit UI Dashboard code
-│
-├── reports/                   # Output storage for reports
-│   ├── pdf/
-│   ├── excel/
-│   └── ppt/
-│
-├── models/                    # Serialized machine learning models
-│
-├── requirements.txt           # Package specifications
-├── README.md                  # Project overview and run guide
-└── main.py                    # Orchestrator CLI entry point
+├── docker-compose.yml             # Container orchestrator
+├── LICENSE                        # MIT License
+└── README.md                      # Reorganized setup and run manual
 ```
 
 ---
 
-## ⚙️ Installation and Setup
+## ⚙️ Running the Services Locally
 
-1. **Create Virtual Environment**:
-   It is recommended to run this in a virtual environment. You can initialize one using `uv` or `venv`:
-   ```bash
-   uv venv
-   ```
-   *or*
-   ```bash
-   python -m venv .venv
-   ```
+We recommend using virtual environments to run both components locally.
 
-2. **Activate the Virtual Environment**:
-   - **Windows**:
-     ```powershell
-     .venv\Scripts\activate
-     ```
-   - **macOS/Linux**:
-     ```bash
-     source .venv/bin/activate
-     ```
+### 1. Start the Backend API (FastAPI)
 
-3. **Install Dependencies**:
+1. Open a new terminal and navigate to the `backend/` directory:
    ```bash
-   uv pip install -r requirements.txt
+   cd backend
    ```
-   *or*
+2. Install the backend dependencies:
    ```bash
    pip install -r requirements.txt
    ```
+3. Start the FastAPI server:
+   ```bash
+   python -m uvicorn app.main:app --reload --port 8000
+   ```
+   *The interactive Swagger documentation is available at [http://localhost:8000/docs](http://localhost:8000/docs).*
+
+### 2. Start the Frontend Dashboard (Streamlit)
+
+1. Open a separate terminal and navigate to the `frontend/` directory:
+   ```bash
+   cd frontend
+   ```
+2. Install the frontend dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Launch the Streamlit dashboard:
+   ```bash
+   streamlit run streamlit_app.py --server.port 8501
+   ```
+   *The frontend dashboard will automatically open in your browser at [http://localhost:8501](http://localhost:8501).*
 
 ---
 
-## 🚀 Running the Platform
+## 🐳 Running with Docker Compose (Recommended for Deployment)
 
-You can run this platform in two modes:
+You can launch both the frontend and backend servers together inside containers with a single command:
 
-### 1. Interactive Web Dashboard (Recommended)
-This launches a beautiful, state-of-the-art interactive dashboard directly in your browser.
 ```bash
-python main.py --dashboard
+docker-compose up --build
 ```
-*or*
-```bash
-streamlit run dashboard/streamlit_app.py
-```
-This loads a comprehensive dummy dataset automatically if you do not upload a file, allowing you to test the entire dashboard's functionality immediately.
 
-### 2. Command-Line Orchestrator (CLI Mode)
-Clean, calculate stats, extract insights, and generate all output reports directly from the terminal for any dataset:
+- **Backend API**: Accessible at `http://localhost:8000`
+- **Frontend App**: Accessible at `http://localhost:8501`
+
+---
+
+## 🧪 Running Unit Tests
+
+To run the suite of 13 automated checks verifying the backend's core analytic engines:
+
 ```bash
-python main.py --input "data/raw/sales.csv" --output-dir "reports" --forecast-col "Sales" --time-col "Date"
+cd backend
+python -m unittest tests/test_all.py
 ```
-Check the `reports/` folder to view the generated PDF, Excel, and PPT files.
+
+---
+
+## 🛠️ System Prerequisites
+
+To run this platform locally or via containers, ensure your system meets these requirements:
+* **Python**: Version `3.10` or higher (tested on `3.14.3`).
+* **Docker & Compose**: Required for containerized orchestration (Docker Compose v5+).
+* **Package Installer**: Standard `pip` (pre-bundled with Python).
+
+---
+
+## 🔒 Security & Configuration
+
+### Hardcoded Credentials
+> [!WARNING]
+> **Demo Security Notice:**
+> The frontend application uses hardcoded credentials (`admin` / `admin`) for quick demo login. For production or public deployment, implement proper authentication (such as JWT/OAuth2 flows) and override the credentials checks in `frontend/streamlit_app.py`.
+
+### Environment Configuration
+The platform components can be configured using environment variables:
+
+| Component | Environment Variable | Default Value | Description |
+| :--- | :--- | :--- | :--- |
+| **Frontend** | `BACKEND_URL` | `http://localhost:8000` | The endpoint URL of the FastAPI backend service. |
+| **Backend** | `PORT` | `8000` | The port the FastAPI server binds to. |
+
+---
+
+## 📖 API Documentation
+
+The FastAPI backend automatically hosts interactive API documentation. When the backend is running, navigate to:
+* **Swagger UI:** [http://localhost:8000/docs](http://localhost:8000/docs)
+* **ReDoc UI:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+

@@ -7,7 +7,7 @@ import tempfile
 import shutil
 
 # Ensure workspace root is in python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app')))
 
 from src.data_loading import load_from_file, get_dataset_metadata
 from src.data_cleaning import (

@@ -165,3 +165,16 @@ reports/ppt/*
 !reports/ppt/.gitkeep
 models/*
 !models/.gitkeep
+
+# Backend specific state and dynamic directories
+backend/app/database.db
+backend/app/database.db-journal
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/reports/pdf/*
+!backend/reports/pdf/.gitkeep
+backend/reports/excel/*
+!backend/reports/excel/.gitkeep
+backend/reports/ppt/*
+!backend/reports/ppt/.gitkeep
+
