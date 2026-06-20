@@ -135,14 +135,21 @@ The platform components can be configured using environment variables:
 
 | Component | Environment Variable | Default Value | Description |
 | :--- | :--- | :--- | :--- |
-| **Frontend** | `BACKEND_URL` | `http://localhost:8000` | The endpoint URL of the FastAPI backend service. |
+| **Frontend** | `BACKEND_URL` | `https://readynest-internship-week1-2.onrender.com` | The endpoint URL of the FastAPI backend service. |
 | **Backend** | `PORT` | `8000` | The port the FastAPI server binds to. |
 
 ---
 
 ## 📖 API Documentation
 
-The FastAPI backend automatically hosts interactive API documentation. When the backend is running, navigate to:
+The FastAPI backend automatically hosts interactive API documentation.
+
+### 🌐 Deployed Production API
+* **Swagger UI:** [https://readynest-internship-week1-2.onrender.com/docs](https://readynest-internship-week1-2.onrender.com/docs)
+* **ReDoc UI:** [https://readynest-internship-week1-2.onrender.com/redoc](https://readynest-internship-week1-2.onrender.com/redoc)
+
+### 💻 Local Development API
 * **Swagger UI:** [http://localhost:8000/docs](http://localhost:8000/docs)
 * **ReDoc UI:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
 
