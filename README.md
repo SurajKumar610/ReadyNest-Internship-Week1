@@ -4,6 +4,13 @@ DARP is a complete, modular, and professional dataset analysis and reporting pla
 
 ---
 
+## 🔗 Live Deployment Links
+
+- **Frontend Application (Streamlit)**: [https://sun-darp.streamlit.app/](https://sun-darp.streamlit.app/)
+- **Backend API (FastAPI)**: [https://readynest-internship-week1-2.onrender.com](https://readynest-internship-week1-2.onrender.com)
+
+---
+
 ## 🚀 Architecture Reorganization
 
 The project is structured into separate frontend and backend directories:
