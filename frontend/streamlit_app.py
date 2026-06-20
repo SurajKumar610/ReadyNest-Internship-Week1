@@ -311,6 +311,11 @@ st.sidebar.markdown("### ⚙️ Workspace Configuration")
 # Selection Mode
 options = ["Upload New Dataset"] + [f"{d['filename']} ({d['id'][:8]})" for d in (datasets_list or [])]
 
+# Sync selection from new upload before selectbox is rendered
+if "new_upload_selection" in st.session_state and st.session_state["new_upload_selection"]:
+    st.session_state["data_selection_sb"] = st.session_state["new_upload_selection"]
+    del st.session_state["new_upload_selection"]
+
 # Sync selection state
 if "data_selection_sb" not in st.session_state:
     st.session_state["data_selection_sb"] = "Upload New Dataset"
@@ -350,7 +355,7 @@ if data_selection == "Upload New Dataset":
                     st.sidebar.success(f"Uploaded and stored: {file.name}")
                     st.session_state["selected_dataset_id"] = res["id"]
                     st.session_state["uploader_key"] += 1
-                    st.session_state["data_selection_sb"] = f"{res['filename']} ({res['id'][:8]})"
+                    st.session_state["new_upload_selection"] = f"{res['filename']} ({res['id'][:8]})"
                     st.rerun()
 else:
     # Extract ID from selection label e.g. "sales.csv (dc7285e0)"
