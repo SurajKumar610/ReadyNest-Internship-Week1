@@ -59,9 +59,15 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Dataset Analytics Platform API", version="1.0")
 
 # Setup CORS
+origins = [
+    "http://localhost:8501",
+    "http://127.0.0.1:8501",
+    "https://sun-darp.streamlit.app"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -78,6 +84,14 @@ os.makedirs(os.path.join(REPORTS_DIR, "ppt"), exist_ok=True)
 
 # Mount reports directory as static files
 app.mount("/static/reports", StaticFiles(directory=REPORTS_DIR), name="reports")
+
+@app.get("/")
+def root():
+    return {"status": "ok", "message": "DARP Dataset Analytics Platform API is running"}
+
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
 
 def serialize_data(obj):
     """Recursively convert Plotly figures, numpy types, and pandas frames to JSON serializable structures."""

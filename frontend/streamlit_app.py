@@ -14,8 +14,19 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Backend URL configuration (can be overridden by environment variable for deployment)
-BACKEND_URL = os.environ.get("BACKEND_URL", "http://localhost:8000").rstrip("/")
+# Try to fetch backend URL from environment variables, streamlit secrets, or fallback to Render production
+BACKEND_URL = os.environ.get("BACKEND_URL") or os.environ.get("API_BASE_URL")
+
+if not BACKEND_URL:
+    try:
+        BACKEND_URL = st.secrets.get("BACKEND_URL") or st.secrets.get("API_BASE_URL")
+    except:
+        pass
+
+if not BACKEND_URL:
+    BACKEND_URL = "https://readynest-internship-week1-2.onrender.com"
+
+BACKEND_URL = BACKEND_URL.rstrip("/")
 
 # Session State for Login
 if "logged_in" not in st.session_state:
@@ -289,7 +300,7 @@ def api_request(method, endpoint, **kwargs):
             st.error(f"Backend API Error ({r.status_code}): {r.text}")
             return None
     except requests.exceptions.ConnectionError:
-        st.error(f"Cannot connect to Backend API at `{BACKEND_URL}`. Please make sure the backend server is running.")
+        st.error(f"Cannot connect to backend server.\n\nConfigured API URL:\n`{BACKEND_URL}`")
         st.stop()
 
 # Fetch uploaded datasets from database (stored files details)

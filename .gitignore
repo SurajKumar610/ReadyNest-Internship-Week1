@@ -178,3 +178,7 @@ backend/reports/excel/*
 backend/reports/ppt/*
 !backend/reports/ppt/.gitkeep
 
+# Streamlit config/secrets at any depth
+**/.streamlit/
+
+
